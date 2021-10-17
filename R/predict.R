@@ -79,7 +79,7 @@ predict.plastogram_model <- function(object, newdata, hmmer_dir, ...) {
   
   hmm_models_res <- predict_profileHMM(newdata, hmmer_dir)
   
-  all_res <- left_join(ngram_models_res, hmm_models_res)
+  all_res <- left_join(ngram_models_res, hmm_models_res, by = "seq_name")
   all_res[is.na(all_res)] <- 0
   
   glm_preds <- data.frame(seq_name = names(newdata),
