@@ -1,0 +1,46 @@
+Package: PlastoGram
+Type: Package
+Title: Prediction of Subchloroplast localization
+Version: 1.0
+LazyData: TRUE
+Date: 2021-10-17
+Authors@R: c(person("Katarzyna", "Sidorczuk", 
+           email = "sidorczuk.katarzyna17@gmail.com",
+           comment = c(ORCID = "0000-0001-6576-9054"),
+           role = c("cre", "aut")),
+           person("Michal", "Burdukiewicz", 
+           email = "michalburdukiewicz@gmail.com", 
+           comment = c(ORCID = "0000-0001-8926-582X"),
+           role = c("aut")),
+           person("Filip", "Pietluch", 
+           email = "fpietluch@gmail.com",
+           role = c("ctb"),
+           comment = c(ORCID = "0000-0001-6218-9804")))
+Description: Predicts subchloroplast localization of proteins using random forests trained on the
+    n-gram encoded peptides, profile-HMM models and higher-order GLM model. The implemented 
+    algorithm can be accessed from both the command line and shiny-based GUI. 
+License: GPL-3
+URL: https://github.com/ksidorczuk/PlastoGram
+BugReports: https://github.com/ksidorczuk/PlastoGram/issues
+Encoding: UTF-8
+Depends:
+    R (>= 3.5.0)
+Imports:
+    biogram,
+    dplyr,
+    seqR,
+    pbapply,
+    ranger,
+    nnet,
+    rhmmer,
+    purrr,
+    shiny
+Suggests:
+    DT,
+    ggplot2,
+    pander,
+    rmarkdown,
+    shinythemes,
+    spelling
+RoxygenNote: 7.1.1
+Language: en-US
