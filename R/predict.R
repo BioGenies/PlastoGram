@@ -57,7 +57,7 @@
 #'   via Sec pathway}
 #'   \item{Tat_model}{recognizes proteins targeted to the thylakoid lumen
 #'   via Tat pathway}}
-#' 
+#'   
 #' @importFrom purrr reduce
 #' @importFrom stats predict
 #' @importFrom dplyr left_join
