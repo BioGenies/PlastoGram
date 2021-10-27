@@ -89,7 +89,7 @@ predict.plastogram_model <- function(object, newdata, hmmer_dir, ...) {
   plastogram_res <- list("Lower-order_models_preds" = all_res,
                          "Higher-order_model_preds" = glm_preds,
                          "Final_results" = data.frame(glm_preds[, c("seq_name", "Localization")],
-                                                      Probability = sapply(1:nrow(glm_preds[, 2:10]), function(i) max(glm_preds[i, 2:10]))))
+                                                      Probability = sapply(1:nrow(glm_preds[, 2:ncol(glm_preds)]), function(i) max(glm_preds[i, 2:ncol(glm_preds)]))))
   class(plastogram_res) <- "plastogram_prediction"
   plastogram_res
 }

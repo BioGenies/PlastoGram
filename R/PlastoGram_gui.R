@@ -1,7 +1,7 @@
 #' PlastoGram Graphical User Interface
 #'
-#' Launches graphical user interface that predicts presence of 
-#' antimicrobial peptides.
+#' Launches graphical user interface that predicts subchloroplast
+#' localization of proteins.
 #'
 #' @importFrom shiny runApp
 #' @seealso \code{\link[shiny]{runApp}}
