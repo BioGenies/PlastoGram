@@ -4,6 +4,8 @@ options(DT.options = list(dom = "Brtip",
 ))
 
 my_DT <- function(x, ...)
-  datatable(x, ..., escape = FALSE, extensions = 'Buttons', filter = "top", rownames = FALSE,
+  datatable(x, ..., escape = FALSE, extensions = c('Buttons', "FixedColumns"), filter = "top", rownames = FALSE,
             style = "bootstrap")
 
+# options = list(dom = 't', scrollX = TRUE, scrollCollapse = TRUE,
+#                scrollY = "700px", paging = FALSE, fixedColumns = list(leftColumns = 1)))

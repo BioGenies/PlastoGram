@@ -79,8 +79,10 @@ shinyServer(function(input, output) {
   
   
   output[["detailed_tab"]] <- renderDataTable({
-    my_DT(detailed_preds()) %>% 
-      formatRound(2:10, 4) 
+    my_DT(detailed_preds(), options = list(scrollX = TRUE, fixedColumns = list(leftColumns = 1))) %>% 
+      formatRound(2:10, 4) %>% 
+      formatStyle("seq_name", target = "row", backgroundColor = "#f6faf2") %>% 
+      formatStyle("seq_name", backgroundColor = "#f6faf2")
   })
   
   output[["dynamic_ui"]] <- renderUI({
@@ -124,6 +126,7 @@ shinyServer(function(input, output) {
                  dataTableOutput("decision_table")
         ),
         tabPanel("Detailed results",
+                 includeMarkdown("detailed_results_desc.md"),
                  dataTableOutput("detailed_tab")
         )
       )
