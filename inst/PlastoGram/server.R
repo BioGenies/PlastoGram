@@ -52,8 +52,8 @@ shinyServer(function(input, output) {
   
   output[["decision_table"]] <- renderDataTable({
     df <- decision_table()
-#    colnames(df) <- c("Protein name", "AMP probability")
-    my_DT(df) 
+    my_DT(df) %>% 
+      formatStyle(1:ncol(df), target = "row", backgroundColor = "#f6faf2")
     
   })
   
@@ -81,8 +81,7 @@ shinyServer(function(input, output) {
   output[["detailed_tab"]] <- renderDataTable({
     my_DT(detailed_preds(), options = list(scrollX = TRUE, fixedColumns = list(leftColumns = 1))) %>% 
       formatRound(2:10, 4) %>% 
-      formatStyle("seq_name", target = "row", backgroundColor = "#f6faf2") %>% 
-      formatStyle("seq_name", backgroundColor = "#f6faf2")
+      formatStyle("seq_name", target = "row", backgroundColor = "#f6faf2")
   })
   
   output[["dynamic_ui"]] <- renderUI({
@@ -101,8 +100,8 @@ shinyServer(function(input, output) {
       )
     } else {
       fluidRow(
-        h4("Exemplary sequences"),
-        pre(includeText("sequences.txt"))
+        useShinyalert(),
+        actionButton("seqs", "Show exemplary sequences")
       )
     }
   })
@@ -131,6 +130,13 @@ shinyServer(function(input, output) {
         )
       )
     }
+  })
+  
+  
+  observeEvent(input[["seqs"]], {
+    shinyalert("",
+               includeText("sequences.txt"),
+               size = 'm')
   })
   
   
