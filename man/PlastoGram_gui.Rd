@@ -10,8 +10,8 @@ PlastoGram_gui()
 No return value, called for side effects.
 }
 \description{
-Launches graphical user interface that predicts presence of 
-antimicrobial peptides.
+Launches graphical user interface that predicts subchloroplast
+localization of proteins.
 }
 \section{Warning }{
  Any ad-blocking software may cause malfunctions.

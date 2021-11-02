@@ -64,7 +64,7 @@
 #' @importFrom ranger ranger
 #' @importFrom nnet multinom
 #' @export
-predict.plastogram_model <- function(object, newdata, hmmer_dir, ...) {
+predict.plastogram_model <- function(object, newdata, hmmer_dir = Sys.which("hmmsearch"), ...) {
   
   ngrams <- add_missing_features(get_ngrams(newdata),
                                  object[["imp_ngrams"]])
@@ -84,12 +84,12 @@ predict.plastogram_model <- function(object, newdata, hmmer_dir, ...) {
   
   glm_preds <- data.frame(seq_name = names(newdata),
                           predict(object[["glm_model"]], all_res, type = "probs"),
-                          Localization = predict(object[["glm_model"]], all_res))
+                          Localization = change_res_names(predict(object[["glm_model"]], all_res)))
   
   plastogram_res <- list("Lower-order_models_preds" = all_res,
                          "Higher-order_model_preds" = glm_preds,
                          "Final_results" = data.frame(glm_preds[, c("seq_name", "Localization")],
-                                                      Probability = sapply(1:nrow(glm_preds[, 2:ncol(glm_preds)]), function(i) max(glm_preds[i, 2:ncol(glm_preds)]))))
+                                                      Probability = sapply(1:nrow(glm_preds[, 2:(ncol(glm_preds)-1)]), function(i) max(glm_preds[i, 2:(ncol(glm_preds)-1)]))))
   class(plastogram_res) <- "plastogram_prediction"
   plastogram_res
 }

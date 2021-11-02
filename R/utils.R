@@ -63,3 +63,18 @@ predict_profileHMM <- function(test_seqs, hmmer_dir = Sys.which("hmmsearch")) {
   
   res
 }
+
+#' @importFrom dplyr case_when
+change_res_names <- function(names_vec) {
+  sapply(names_vec, function(i) case_when(i == "N_OM" ~ "Nuclear-encoded; outer membrane",
+                                          i == "N_IM" ~ "Nuclear-encoded; inner membrane",
+                                          i == "N_TM" ~ "Nuclear-encoded; thylakoid membrane",
+                                          i == "N_S" ~ "Nuclear-encoded; stroma",
+                                          i == "N_TL_SEC" ~ "Nuclear-encoded; thylakoid lumen (Sec pathway)",
+                                          i == "N_TL_TAT" ~ "Nuclear-encoded; thylakoid lumen (Tat pathway)",
+                                          i == "P_IM" ~ "Plastid-encoded; inner membrane",
+                                          i == "P_TM" ~ "Plastid-encoded; thylakoid membrane",
+                                          i == "P_S" ~ "Plastid-encoded; stroma"),
+         USE.NAMES = FALSE)
+}
+
