@@ -41,9 +41,11 @@ predict_profileHMM <- function(test_seqs, hmmer_dir = Sys.which("hmmsearch")) {
     see this message, please use 'hmmer_dir' argument to provide a proper path to 
     the hmmer directory in which 'hmmsearch' executable is located.")
   } else if(hmmer_dir == Sys.which("hmmsearch")) {
+    owd <- setwd(tempdir())
+    on.exit(setwd(owd))
     write_fasta(test_seqs, "test_seqs.fa")
-    system(paste0("hmmsearch --tblout hmmer_res_sec ", normalizePath(system.file(package = "PlastoGram")), "/PlastoGram_Sec_model.hmm test_seqs.fa >/dev/null")) 
-    system(paste0("hmmsearch --tblout hmmer_res_tat ", normalizePath(system.file(package = "PlastoGram")), "/PlastoGram_Tat_model.hmm test_seqs.fa >/dev/null")) 
+    system(paste0("hmmsearch --tblout hmmer_res_sec ", normalizePath(system.file(package = "PlastoGram")), "/PlastoGram_Sec_model.hmm", paste0(owd)," test_seqs.fa >/dev/null")) 
+    system(paste0("hmmsearch --tblout hmmer_res_tat ", normalizePath(system.file(package = "PlastoGram")), "/PlastoGram_Tat_model.hmm ", paste0(owd),"test_seqs.fa >/dev/null")) 
   } else {
     if(grepl("/$", hmmer_dir)) hmmer_dir <- gsub("/$", "", hmmer_dir)
     tryCatch(system(paste0(hmmer_dir, "/hmmsearch --tblout hmmer_res_sec ", normalizePath(system.file(package = "PlastoGram")), 
@@ -54,7 +56,7 @@ predict_profileHMM <- function(test_seqs, hmmer_dir = Sys.which("hmmsearch")) {
                if(msg == "error in running command") message("Please check if the HMMER directory path you provided is correct.")
              })
   }
-
+  
   res <- full_join(read_hmmer_results("hmmer_res_sec", "Sec_model"),
                    read_hmmer_results("hmmer_res_tat", "Tat_model"),
                    by = "seq_name")
