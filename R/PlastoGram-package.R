@@ -16,3 +16,4 @@
 #' @references ...
 #' @keywords package
 NULL
+globalVariables(c("sequence_score"))

@@ -4,7 +4,7 @@
 \alias{predict.plastogram_model}
 \title{Predict subchloroplast localization}
 \usage{
-\method{predict}{plastogram_model}(object, newdata, hmmer_dir, ...)
+\method{predict}{plastogram_model}(object, newdata, hmmer_dir = Sys.which("hmmsearch"), ...)
 }
 \arguments{
 \item{object}{\code{plastogram_model} object.}
