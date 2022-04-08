@@ -61,7 +61,7 @@ shinyServer(function(input, output) {
   
   detailed_preds <- reactive({
     if(!is.null(prediction())) {
-      prediction()[["Lower-order_models_preds"]]
+      prediction()[["Lower_level_preds"]]
     }
   })
     
@@ -80,7 +80,7 @@ shinyServer(function(input, output) {
   
   output[["detailed_tab"]] <- renderDataTable({
     my_DT(detailed_preds(), options = list(scrollX = TRUE, fixedColumns = list(leftColumns = 1))) %>% 
-      formatRound(2:10, 4) %>% 
+      formatRound(2:8, 4) %>% 
       formatStyle("seq_name", target = "row", backgroundColor = "#f6faf2")
   })
   
@@ -100,7 +100,6 @@ shinyServer(function(input, output) {
       )
     } else {
       fluidRow(
-        useShinyalert(),
         actionButton("seqs", "Show exemplary sequences")
       )
     }

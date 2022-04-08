@@ -62,12 +62,11 @@
 #' @importFrom stats predict
 #' @importFrom dplyr left_join
 #' @importFrom ranger ranger
-#' @importFrom nnet multinom
 #' @export
 predict.plastogram_model <- function(object, newdata, hmmer_dir = Sys.which("hmmsearch"), ...) {
   
   ngrams <- add_missing_features(get_ngrams(newdata),
-                                 object[["imp_ngrams"]])
+                                 c(object[["imp_ngrams"]], object[["OM_IM_model"]][["forest"]][["independent.variable.names"]]))
   
   ngram_preds_list <- lapply(names(object[["ngram_models"]]), function(ith_model) {
     df <- data.frame(seq_name = names(newdata),
@@ -82,14 +81,28 @@ predict.plastogram_model <- function(object, newdata, hmmer_dir = Sys.which("hmm
   all_res <- left_join(ngram_models_res, hmm_models_res, by = "seq_name")
   all_res[is.na(all_res)] <- 0
   
-  glm_preds <- data.frame(seq_name = names(newdata),
-                          predict(object[["glm_model"]], all_res, type = "probs"),
-                          Localization = change_res_names(predict(object[["glm_model"]], all_res)))
+  hl_preds <- data.frame(seq_name = names(newdata),
+                         predict(object[["RF_model"]], all_res)[["predictions"]])
+  hl_preds[["Localization"]] <- colnames(hl_preds)[2:ncol(hl_preds)][max.col(hl_preds[, colnames(hl_preds)[2:ncol(hl_preds)]])]
   
-  plastogram_res <- list("Lower-order_models_preds" = all_res,
-                         "Higher-order_model_preds" = glm_preds,
-                         "Final_results" = data.frame(glm_preds[, c("seq_name", "Localization")],
-                                                      Probability = sapply(1:nrow(glm_preds[, 2:(ncol(glm_preds)-1)]), function(i) max(glm_preds[i, 2:(ncol(glm_preds)-1)]))))
+  n_e <- which(hl_preds[["Localization"]] == "N_E")
+  om_im_preds <- if(length(n_e > 0)) {
+    om_im_res <- predict(object[["OM_IM_model"]],
+                         ngrams[n_e, ])[["predictions"]]
+    df <- data.frame(seq_name = hl_preds[["seq_name"]][n_e],
+                     OM = om_im_res[, "TRUE"],
+                     IM = om_im_res[, "FALSE"])
+    df[["Localization"]] <- sapply(1:nrow(df), function(i) ifelse(df[["OM"]][i] > df[["IM"]][i], "OM", "IM"))
+    df
+  } else {
+    NULL
+  }
+  
+  plastogram_res <- list("Lower_level_preds" = all_res,
+                         "Higher_level_preds" = hl_preds,
+                         "OM_IM_preds" = om_im_preds,
+                         "Final_results" = data.frame(hl_preds[, c("seq_name", "Localization")],
+                                                      Probability = sapply(1:nrow(hl_preds[, 2:(ncol(hl_preds)-1)]), function(i) max(hl_preds[i, 2:(ncol(hl_preds)-1)]))))
   class(plastogram_res) <- "plastogram_prediction"
   plastogram_res
 }
