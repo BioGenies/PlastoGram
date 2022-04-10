@@ -65,6 +65,11 @@ shinyServer(function(input, output) {
     }
   })
     
+  om_im_preds <- reactive({
+    if(!is.null(prediction()) & !is.null(prediction()[["OM_IM_preds"]])) {
+      prediction()[["OM_IM_preds"]]
+    }
+  })
   
   
   # output[["detailed_preds"]] <- renderUI({
@@ -81,6 +86,12 @@ shinyServer(function(input, output) {
   output[["detailed_tab"]] <- renderDataTable({
     my_DT(detailed_preds(), options = list(scrollX = TRUE, fixedColumns = list(leftColumns = 1))) %>% 
       formatRound(2:8, 4) %>% 
+      formatStyle("seq_name", target = "row", backgroundColor = "#f6faf2")
+  })
+  
+  output[["om_im_tab"]] <- renderDataTable({
+    my_DT(om_im_preds(), options = list(scrollX = TRUE, fixedColumns = list(leftColumns = 1))) %>% 
+      formatRound(2:3, 4) %>% 
       formatStyle("seq_name", target = "row", backgroundColor = "#f6faf2")
   })
   
@@ -126,7 +137,12 @@ shinyServer(function(input, output) {
         tabPanel("Detailed results",
                  includeMarkdown("detailed_results_desc.md"),
                  dataTableOutput("detailed_tab")
-        )
+        ),
+        if(!is.null(om_im_preds())) {
+          tabPanel("N_E predictions",
+                   includeMarkdown("om_im_results_desc.md"),
+                   dataTableOutput("om_im_tab"))
+        }
       )
     }
   })

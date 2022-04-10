@@ -1,0 +1,1 @@
+N_E predictions include additional results of further prediction performed only for nuclear-encoded envelope proteins to determine if they are located in inner or outer membrane. OM and IM columns indicate probabilities of a protein localizing to each of these compartments, whereas the last column cotains predicted localization.
