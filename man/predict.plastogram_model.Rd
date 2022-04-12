@@ -21,20 +21,22 @@ is located}
 object of class \code{plastogram_prediction}, a \code{list} of three
 \code{data frame}s containing prediction results:
 \describe{
-  \item{Lower-order_models_preds}{Prediction results from nine lower-order
+  \item{Lower_level_preds}{Prediction results from eight lower-level
   models trained to recognize sequence features associated with specific 
-  subchloroplast localization. Data frame with 10 columns and number of rows
+  subplastidlocalization. Data frame with 9 columns and number of rows
   equal to the number of analyzed sequences. The first column contains sequence
-  name and the following  For more information on lower-order models
-  see Details section.}
-  \item{Higher-order_model_preds}{Prediction results from higher-order model
-  trained to determine final subchloroplast localization of a given protein
-  based on predictions obtained by lower-order models. Data frame with 10 columns
+  name and the following columns store prediction results from all lower-level
+  models. For more information on lower-order models see Details section.}
+  \item{Higher_level_preds}{Prediction results from higher-level model
+  trained to determine final subplastid localization of a given protein
+  based on predictions obtained by lower-level models. Data frame with 10 columns
   and number of rows equal to number of analyzed sequences. The first column
-  (\code{seq_name}), the following nine columns contain prediction probabilities
-  for each of the locations considered by the PlastoGram model. The last column
-  (\code{Localization}) contains abbreviation of a predicted location. For more 
-  information on higher-order model see Details section.}
+  (\code{seq_name}) indicates sequence name an the following eight columns 
+  contain prediction probabilities for each of the locations considered by 
+  the PlastoGram model. The last column (\code{Localization}) contains 
+  abbreviation of a predicted location. For more information on higher-level 
+  model see Details section.}
+  \item{OM_IM_preds}{}
   \item{Final_results}{Summary of PlastoGram predictions. Data frame with 3
   columns and number of rows equal to the number of analyzed sequences. The
   columns contain the following information: name of the analyzed sequence,
@@ -53,19 +55,19 @@ characteristic for specific subchloroplast localizations. They include
 random forest models based on ngrams (short amino acid motifs):
 \describe{
   \item{Nuclear_model}{recognizes nuclear-encoded proteins}
-  \item{Membrane_model}{recognizes membrane proteins}
-  \item{Nuclear_OM_model}{recognizes nuclear-encoded proteins targeted to 
-  plastid outer membrane}
-  \item{Nuclear_IM_model}{recognizes nuclear-encoded proteins targeted to 
-  plastid inner membrane}
-  \item{Nuclear_TM_model}{recognizes nuclear-encoded proteins targeted to 
-  plastid thylakoid membrane}
-  \item{Plastid_membrane_model}{differentiates plastid-encoded proteins 
-  targeted to plastid inner and thylakoid membrane. Prediction values 0 
-  indicate thylakoid membrane, whereas 1 inner membrane}
-  \item{Nuclear_OM_stroma_model}{differentiates nuclear-encoded proteins 
-  targeted to plastid outer membrane and stroma. Prediction values 0 
-  indicate stroma, whereas 1 outer membrane}}
+  \item{Membrane_model}{identifies membrane proteins}
+  \item{N_E_vs_N_TM_model}{differentiates between nuclear-encoded envelope 
+  proteins and nuclear-encoded thylakoid membrane proteins. Prediction
+  values over 0.5 indicate envelope, whereas lower thylakoid membrane}
+  \item{Plastid_membrane_model}{distinguishes plastid-encoded proteins 
+  targeted to plastid inner and thylakoid membrane. Prediction values 
+  higher than 0.5 indicate inner membrane, whereas lower thylakoid 
+  membrane}
+  \item{N_E_vs_N_S_model}{differentiates nuclear-encoded proteins 
+  targeted to envelope from nuclear-encoded stromal proteins. Prediction 
+  values over 0.5 indicate envelope, whereas lower stroma}
+  \item{Nuclear_membrane_model}{distinguishes nuclear-encoded membrane
+  proteins from all others}}
 and profile HMM models based on HMMER software
 \describe{
   \item{Sec_model}{recognizes proteins targeted to the thylakoid lumen

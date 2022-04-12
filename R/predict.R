@@ -50,7 +50,7 @@
 #'   membrane}
 #'   \item{N_E_vs_N_S_model}{differentiates nuclear-encoded proteins 
 #'   targeted to envelope from nuclear-encoded stromal proteins. Prediction 
-#'   values over 0.5 indicate envelope, whereas lower stroma}}
+#'   values over 0.5 indicate envelope, whereas lower stroma}
 #'   \item{Nuclear_membrane_model}{distinguishes nuclear-encoded membrane
 #'   proteins from all others}}
 #' and profile HMM models based on HMMER software
