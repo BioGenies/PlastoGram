@@ -6,6 +6,3 @@
 * Be patient - calculations can take up to few minutes.  
 * Up to 50 sequences may be analyzed at the same time using web server. If you need larger query, please use the [PlastoGram](https://github.com/ksidorczuk/PlastoGram) package for **R**.
 
-**Authors**: Katarzyna Sidorczuk, Filip Pietluch, Michał Burdukiewicz
-
-**Citation**: ...
