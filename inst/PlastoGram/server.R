@@ -57,29 +57,19 @@ shinyServer(function(input, output) {
     
   })
   
-
+  
   
   detailed_preds <- reactive({
     if(!is.null(prediction())) {
       prediction()[["Lower_level_preds"]]
     }
   })
-    
+  
   om_im_preds <- reactive({
     if(!is.null(prediction()) & !is.null(prediction()[["OM_IM_preds"]])) {
       prediction()[["OM_IM_preds"]]
     }
   })
-  
-  
-  # output[["detailed_preds"]] <- renderUI({
-  #   detailed_preds_list <- lapply(1L:length(detailed_preds()), function(i) {
-  #     list(plotOutput(paste0("detailed_plot", i)),
-  #          dataTableOutput(paste0("detailed_table", i)))
-  #   })
-  #   c(list(downloadButton("download_long_graph", "Download long output (with graphics)")),
-  #     do.call(tagList, unlist(detailed_preds_list, recursive = FALSE)))
-  # })
   
   
   
@@ -130,20 +120,30 @@ shinyServer(function(input, output) {
       
       
     } else {
-      tabsetPanel(
-        tabPanel("Results",
-                 dataTableOutput("decision_table")
-        ),
-        tabPanel("Detailed results",
-                 includeMarkdown("detailed_results_desc.md"),
-                 dataTableOutput("detailed_tab")
-        ),
-        if(!is.null(om_im_preds())) {
+      if(!is.null(om_im_preds())) {
+        tabsetPanel(
+          tabPanel("Results",
+                   dataTableOutput("decision_table")
+          ),
+          tabPanel("Detailed results",
+                   includeMarkdown("detailed_results_desc.md"),
+                   dataTableOutput("detailed_tab")
+          ),
           tabPanel("N_E predictions",
                    includeMarkdown("om_im_results_desc.md"),
                    dataTableOutput("om_im_tab"))
-        }
-      )
+        )
+      } else {
+        tabsetPanel(
+          tabPanel("Results",
+                   dataTableOutput("decision_table")
+          ),
+          tabPanel("Detailed results",
+                   includeMarkdown("detailed_results_desc.md"),
+                   dataTableOutput("detailed_tab")
+          )
+        )
+      }
     }
   })
   
