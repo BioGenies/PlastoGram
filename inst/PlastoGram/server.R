@@ -53,7 +53,8 @@ shinyServer(function(input, output) {
   output[["decision_table"]] <- renderDataTable({
     df <- decision_table()
     my_DT(df) %>% 
-      formatStyle(1:ncol(df), target = "row", backgroundColor = "#f6faf2")
+      formatStyle(1:ncol(df), target = "row", backgroundColor = "#f6faf2") %>% 
+      formatRound(3, 4) 
     
   })
   
