@@ -23,7 +23,7 @@ object of class \code{plastogram_prediction}, a \code{list} of three
 \describe{
   \item{Lower_level_preds}{Prediction results from eight lower-level
   models trained to recognize sequence features associated with specific 
-  subplastidlocalization. Data frame with 9 columns and number of rows
+  subplastid localization. Data frame with 9 columns and number of rows
   equal to the number of analyzed sequences. The first column contains sequence
   name and the following columns store prediction results from all lower-level
   models. For more information on lower-order models see Details section.}
