@@ -10,7 +10,8 @@ library(pander)
 
 source("shiny-server-utils.R")
 
-data(PlastoGram_model)
+data(PlastoGram_model_H)
+data(PlastoGram_model_P)
 
 options(shiny.maxRequestSize=10*1024^2)
 
@@ -36,14 +37,19 @@ shinyServer(function(input, output) {
           #dummy error, just to stop further processing
           stop("The minimum length of the sequence is 5 amino acids.")
         } else {
-          predict(PlastoGram_model, input_sequences, Sys.which("hmmsearch"))
+          if(input[["model_type"]] == "PlastoGram_H") {
+            predict(PlastoGram_H, input_sequences, Sys.which("hmmsearch"))
+          } else if(input[["model_type"]] == "PlastoGram_P") {
+            predict(PlastoGram_P, input_sequences, Sys.which("hmmsearch"))
+          }
+          
         }
       }
     } else {
       NULL
     }
   })
-  
+
   decision_table <- reactive({
     if(!is.null(prediction())) {
       prediction()[["Final_results"]]
@@ -111,6 +117,9 @@ shinyServer(function(input, output) {
     if(is.null(prediction())) {
       
       tabPanel(title = "Sequence input",
+               radioButtons("model_type", "Selected PlastoGram model", 
+                            choices = c("H (Holdout version)" = "PlastoGram_H", "P (Partitioning version)" = "PlastoGram_P"), 
+                            selected = "PlastoGram_H"),
                tags$textarea(id = "text_area", style = "width:90%",
                              placeholder="Paste sequences (FASTA format required) here...", 
                              rows = 22, cols = 60, ""),

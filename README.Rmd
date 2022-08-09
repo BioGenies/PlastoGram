@@ -70,6 +70,11 @@ PlastoGram consists of eight lower-level models trained to tackle a specific lab
 - Sec_model - identifies proteins targeted to the thylakoid lumen via Sec pathway
 - Tat_model - recognizes proteins targeted to the thylakoid lumen via Tat pathway
 
+## Versions of the model
+```{r, echo=FALSE, results='asis'}
+cat(PlastoGram:::markdown_versions())
+```
+
 ## Predicting subplastid localization
 
 Suppopse you wish to predict localization of proteins which sequences are stored in sequence_file.fa located in the working directory.

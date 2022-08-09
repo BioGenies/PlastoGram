@@ -33,7 +33,8 @@ read_hmmer_results <- function(res_file, model_name) {
 
 #' @importFrom biogram write_fasta
 #' @importFrom dplyr full_join
-predict_profileHMM <- function(test_seqs, hmmer_dir = Sys.which("hmmsearch")) {
+predict_profileHMM <- function(test_seqs, hmmer_dir = Sys.which("hmmsearch"), type) {
+  hmm_name <- ifelse(type == "H", "PlastoGram", "PlastoGram_graphpart")
   
   if(hmmer_dir == "") {
     stop("It seems that you do not have HMMER installed. To be able to use PlastoGram,
@@ -44,15 +45,15 @@ predict_profileHMM <- function(test_seqs, hmmer_dir = Sys.which("hmmsearch")) {
     owd <- setwd(tempdir())
     on.exit(setwd(owd))
     write_fasta(test_seqs, "test_seqs.fa")
-    system(paste0("hmmsearch --tblout hmmer_res_sec ", normalizePath(system.file(package = "PlastoGram")), "/PlastoGram_Sec_model.hmm test_seqs.fa >/dev/null")) 
-    system(paste0("hmmsearch --tblout hmmer_res_tat ", normalizePath(system.file(package = "PlastoGram")), "/PlastoGram_Tat_model.hmm test_seqs.fa >/dev/null")) 
+    system(paste0("hmmsearch --tblout hmmer_res_sec ", normalizePath(system.file(package = "PlastoGram")), "/", hmm_name, "_Sec_model.hmm test_seqs.fa >/dev/null")) 
+    system(paste0("hmmsearch --tblout hmmer_res_tat ", normalizePath(system.file(package = "PlastoGram")), "/", hmm_name, "_Tat_model.hmm test_seqs.fa >/dev/null")) 
   } else {
     if(grepl("/$", hmmer_dir)) hmmer_dir <- gsub("/$", "", hmmer_dir)
     owd <- setwd(tempdir())
     on.exit(setwd(owd))
     tryCatch(system(paste0(hmmer_dir, "/hmmsearch --tblout hmmer_res_sec ", normalizePath(system.file(package = "PlastoGram")), 
-                           "/PlastoGram_Sec_model.hmm test_seqs.fa && hmmsearch --tblout hmmer_res_tat ", 
-                           normalizePath(system.file(package = "PlastoGram")), "/PlastoGram_Tat_model.hmm test_seqs.fa >/dev/null")),
+                           "/", hmm_name, "_Sec_model.hmm test_seqs.fa && hmmsearch --tblout hmmer_res_tat ", 
+                           normalizePath(system.file(package = "PlastoGram")), "/", hmm_name, "_Tat_model.hmm test_seqs.fa >/dev/null")),
              warning = function(w) {
                msg <- conditionMessage(w)
                if(msg == "error in running command") message("Please check if the HMMER directory path you provided is correct.")

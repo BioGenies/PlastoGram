@@ -12,33 +12,29 @@ imported via Sec and Tat pathways with HMM profiles. You can install
 HMMER using the following instructions (adapted from [HMMER
 documentation](http://hmmer.org/documentation.html)):
 
-  - installing with system packager
+-   installing with system packager
 
-<!-- end list -->
+<!-- -->
 
-``` 
-  % brew install hmmer               # OS/X, HomeBrew
-  % port install hmmer               # OS/X, MacPorts
-  % apt install hmmer                # Linux (Ubuntu, Debian...)
-  % dnf install hmmer                # Linux (Fedora)
-  % yum install hmmer                # Linux (older Fedora)
-  % conda install -c bioconda hmmer  # Anaconda
-```
+      % brew install hmmer               # OS/X, HomeBrew
+      % port install hmmer               # OS/X, MacPorts
+      % apt install hmmer                # Linux (Ubuntu, Debian...)
+      % dnf install hmmer                # Linux (Fedora)
+      % yum install hmmer                # Linux (older Fedora)
+      % conda install -c bioconda hmmer  # Anaconda
 
-  - compiling from source
+-   compiling from source
 
-<!-- end list -->
+<!-- -->
 
-``` 
-  % wget http://eddylab.org/software/hmmer/hmmer.tar.gz 
-  % tar zxf hmmer.tar.gz
-  % cd hmmer-3.3.2
-  % ./configure --prefix /your/install/path
-  % make
-  % make check
-  % make install
-  % (cd easel; make install)
-```
+      % wget http://eddylab.org/software/hmmer/hmmer.tar.gz 
+      % tar zxf hmmer.tar.gz
+      % cd hmmer-3.3.2
+      % ./configure --prefix /your/install/path
+      % make
+      % make check
+      % make install
+      % (cd easel; make install)
 
 For more information about HMMER please visit [HMMER
 website](http://hmmer.org/).
@@ -68,30 +64,49 @@ uses results from of lower-level models to provide the prediction of a
 protein localization and origin. The lower-level models used in the
 PlastoGram with their areas of competence are listed below:
 
-  - Nuclear\_model - recognizes nuclear-encoded proteins
-  - Membrane\_model - identifies membrane proteins
-  - N\_E\_vs\_N\_TM\_model - differentiates between nuclear-encoded
+-   Nuclear_model - recognizes nuclear-encoded proteins
+-   Membrane_model - identifies membrane proteins
+-   N_E\_vs_N\_TM_model - differentiates between nuclear-encoded
     envelope proteins and nuclear-encoded thylakoid membrane proteins.
     Prediction values over 0.5 indicate envelope, whereas lower
     thylakoid membrane
-  - Plastid\_membrane\_model - distinguishes plastid-encoded proteins
+-   Plastid_membrane_model - distinguishes plastid-encoded proteins
     targeted to plastid inner and thylakoid membrane. Prediction values
     higher than 0.5 indicate inner membrane, whereas lower thylakoid
     membrane
-  - N\_E\_vs\_N\_S\_model - differentiates nuclear-encoded proteins
+-   N_E\_vs_N\_S_model - differentiates nuclear-encoded proteins
     targeted to envelope from nuclear-encoded stromal proteins.
     Prediction values over 0.5 indicate envelope, whereas lower stroma
-  - Nuclear\_membrane\_model - distinguishes nuclear-encoded membrane
+-   Nuclear_membrane_model - distinguishes nuclear-encoded membrane
     proteins from all others
-  - Sec\_model - identifies proteins targeted to the thylakoid lumen via
+-   Sec_model - identifies proteins targeted to the thylakoid lumen via
     Sec pathway
-  - Tat\_model - recognizes proteins targeted to the thylakoid lumen via
+-   Tat_model - recognizes proteins targeted to the thylakoid lumen via
     Tat pathway
+
+## Versions of the model
+
+We provide two versions of PlastoGram trained and evaluated on slightly
+different subsets of data. Two versions of data sets differed in a
+strategy of division into train-test and independent sets. In the
+**holdout version**, the independent set was created by randomly
+selecting 15% of sequences from each class, whereas the rest was used in
+cross-validation and to train the final model. In the **partitioning
+version**, division into train-test and independent sets was carried out
+using homology partitioning ensuring that between these sets there are
+no sequences with identity percent higher than 40%.
+
+-   **PlastoGram H** - model trained on the holdout data set, had better
+    performance in the independent test but homology between training
+    and independent sequences was not accounted for.
+-   **PlastoGram P** - model trained on the partitioning data set, had
+    lower performance in the independent test but there was fewer test
+    sequences and they were not homologous to those in the training set.
 
 ## Predicting subplastid localization
 
 Suppopse you wish to predict localization of proteins which sequences
-are stored in sequence\_file.fa located in the working directory.
+are stored in sequence_file.fa located in the working directory.
 
 ``` r
 # load the package
@@ -141,7 +156,12 @@ Burdukiewicz](mailto:michalburdukiewicz@gmail.com).
 
 ## Acknowledgements
 
-PlastoGram is supported by the grant no. [2018/31/N/NZ2/01338 (National
-Science
-Center)](https://projekty.ncn.gov.pl/index.php?projekt_id=429890) to
-Katarzyna Sidorczuk.
+This work has been supported by the Foundation of Polish Science grant
+TEAM TECH CORE FACILITY/2016-2/2 to M.B, the National Science Centre
+grant
+[2018/31/N/NZ2/01338](https://projekty.ncn.gov.pl/index.php?projekt_id=429890)
+to K.S., the National Science Centre grant
+[2017/26/D/NZ8/00444](https://projekty.ncn.gov.pl/index.php?projekt_id=384760)
+to P.G., and the National Science Centre grant
+[2019/35/N/NZ8/03366](https://projekty.ncn.gov.pl/index.php?projekt_id=463135)
+to F.P.

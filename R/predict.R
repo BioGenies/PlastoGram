@@ -67,6 +67,14 @@
 #' @export
 predict.plastogram_model <- function(object, newdata, hmmer_dir = Sys.which("hmmsearch"), ...) {
   
+  if(substitute(object) == "PlastoGram_H") {
+    type <- "H"
+  } else if(substitute(object) == "PlastoGram_P") {
+    type <- "P"
+  } else {
+    stop("Supplied model is not a PlastoGram model. Please use PlastoGram_H or PlastoGram_P objects.")
+  }
+  
   ngrams <- add_missing_features(get_ngrams(newdata),
                                  c(object[["imp_ngrams"]], object[["OM_IM_model"]][["forest"]][["independent.variable.names"]]))
   
@@ -78,7 +86,7 @@ predict.plastogram_model <- function(object, newdata, hmmer_dir = Sys.which("hmm
   }) 
   ngram_models_res <- reduce(ngram_preds_list, full_join, by = "seq_name")
   
-  hmm_models_res <- predict_profileHMM(newdata, hmmer_dir)
+  hmm_models_res <- predict_profileHMM(newdata, hmmer_dir, type = type)
   
   all_res <- left_join(ngram_models_res, hmm_models_res, by = "seq_name")
   all_res[is.na(all_res)] <- 0
