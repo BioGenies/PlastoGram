@@ -18,7 +18,8 @@ markdown_acknowledgements <- function() {
   "
   This work has been supported by the National Science Centre grant [2018/31/N/NZ2/01338](https://projekty.ncn.gov.pl/index.php?projekt_id=429890) to K.S., 
 the National Science Centre grant [2017/26/D/NZ8/00444](https://projekty.ncn.gov.pl/index.php?projekt_id=384760) to P.G.,
-and the National Science Centre grant [2019/35/N/NZ8/03366](https://projekty.ncn.gov.pl/index.php?projekt_id=463135) to F.P.
+and the National Science Centre grant [2019/35/N/NZ8/03366](https://projekty.ncn.gov.pl/index.php?projekt_id=463135) to F.P. 
+M. B. was supported by the Maria Zambrano grant funded by the European Union-NextGenerationEU.
   "
 }
 
