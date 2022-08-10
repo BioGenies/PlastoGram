@@ -17,6 +17,8 @@ options(shiny.maxRequestSize=10*1024^2)
 
 shinyServer(function(input, output) {
   
+  observe_helpers(withMathJax = TRUE)
+  
   prediction <- reactive({
     
     if (!is.null(input[["seq_file"]]))
@@ -49,7 +51,7 @@ shinyServer(function(input, output) {
       NULL
     }
   })
-
+  
   decision_table <- reactive({
     if(!is.null(prediction())) {
       prediction()[["Final_results"]]
@@ -114,12 +116,16 @@ shinyServer(function(input, output) {
   })
   
   output[["dynamic_tabset"]] <- renderUI({
+    
     if(is.null(prediction())) {
       
       tabPanel(title = "Sequence input",
-               radioButtons("model_type", "Selected PlastoGram model", 
-                            choices = c("H (Holdout version)" = "PlastoGram_H", "P (Partitioning version)" = "PlastoGram_P"), 
-                            selected = "PlastoGram_H"),
+               fluidRow(
+                 column(4, radioButtons("model_type", "Selected PlastoGram model", 
+                                        choices = c("H (Holdout version)" = "PlastoGram_H", "P (Partitioning version)" = "PlastoGram_P"), 
+                                        selected = "PlastoGram_H")),
+                 column(1, helper("",
+                                  type = "inline", content = markdown(PlastoGram:::markdown_versions())))),
                tags$textarea(id = "text_area", style = "width:90%",
                              placeholder="Paste sequences (FASTA format required) here...", 
                              rows = 22, cols = 60, ""),

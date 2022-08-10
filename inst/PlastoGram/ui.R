@@ -1,6 +1,7 @@
 library(shiny)
 library(shinythemes)
 library(shinyalert)
+library(shinyhelper)
 
 shinyUI(fluidPage(tags$head(includeScript("ga.js"), 
                             tags$link(rel = "stylesheet", type = "text/css"))
@@ -19,8 +20,6 @@ shinyUI(fluidPage(tags$head(includeScript("ga.js"),
                   sidebarLayout(
                     sidebarPanel(style = "background-color: #e1f0d5;border-color: #52804b;border-width: .25rem",
                                  includeMarkdown("readme.md"),
-                                 markdown("**Model versions**:"),
-                                 markdown(PlastoGram:::markdown_versions()),
                                  uiOutput("dynamic_ui"),
                                  markdown("<br><br>**Citation**:"),
                                  markdown(PlastoGram:::markdown_citation()),
