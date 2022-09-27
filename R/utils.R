@@ -21,7 +21,7 @@ add_missing_features <- function(ngrams, imp_ngrams) {
   }
 }
 
-#' @importFrom rhmmer read_tblout
+
 #' @importFrom dplyr mutate bind_rows
 read_hmmer_results <- function(res_file, model_name) {
   res <- mutate(bind_rows(read_tblout(res_file)), 

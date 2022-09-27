@@ -81,7 +81,7 @@ cat(PlastoGram:::markdown_versions())
 
 ## Predicting subplastid localization
 
-Suppopse you wish to predict localization of proteins which sequences are stored in sequence_file.fa located in the working directory.
+Suppopse you wish to predict localization of proteins which sequences are stored in sequence_file.fa located in the working directory using the holdout version of PlastoGram model.
 
 ``` r
 # load the package
@@ -91,7 +91,7 @@ library(PlastoGram)
 sequences <- read_txt("sequence_file.fa")
 
 # run predictions
-predictions <- predict(PlastoGram_model, sequences)
+predictions <- predict(PlastoGram_H, sequences)
 
 # inspect results
 # see predictions of origin and localization:

@@ -3,6 +3,11 @@
 
 <img src="./inst/PlastoGram/PlastoGram_logo.png" style="height: 200px;"/>
 
+## Web server
+
+The Shiny web server is available under the address:
+<https://biogenies.info/PlastoGram>.
+
 ## Installation
 
 ### Installing HMMER
@@ -100,13 +105,14 @@ no sequences with identity percent higher than 40%.
     performance in the independent test but homology between training
     and independent sequences was not accounted for.
 -   **PlastoGram P** - model trained on the partitioning data set, had
-    lower performance in the independent test but there was fewer test
+    lower performance in the independent test but there were fewer test
     sequences and they were not homologous to those in the training set.
 
 ## Predicting subplastid localization
 
 Suppopse you wish to predict localization of proteins which sequences
-are stored in sequence_file.fa located in the working directory.
+are stored in sequence_file.fa located in the working directory using
+the holdout version of PlastoGram model.
 
 ``` r
 # load the package
@@ -116,7 +122,7 @@ library(PlastoGram)
 sequences <- read_txt("sequence_file.fa")
 
 # run predictions
-predictions <- predict(PlastoGram_model, sequences)
+predictions <- predict(PlastoGram_H, sequences)
 
 # inspect results
 # see predictions of origin and localization:
