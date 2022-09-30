@@ -117,10 +117,15 @@ predictions[["OM_IM_preds"]]
 
 ```
 
-## Citation (coming soon)
+## Citation (coming soon) 
 ```{r, echo=FALSE, results='asis'}
 cat(PlastoGram:::markdown_citation())
 ```
+
+## Code availability
+
+Code necessary to reproduce the whole analysis described in the article and leading to the final PlastoGram algorithm is available at https://github.com/BioGenies/PlastoGram-analysis.
+
 
 ## Contact
 ```{r, echo=FALSE, results='asis'}

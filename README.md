@@ -154,6 +154,12 @@ Burdukiewicz M. (2022). Where do they come from, where do they go?
 Efficient prediction of protein subplastid localization and sequence
 origin with PlastoGram. XXXYYY, doi.
 
+## Code availability
+
+Code necessary to reproduce the whole analysis described in the article
+and leading to the final PlastoGram algorithm is available at
+<https://github.com/BioGenies/PlastoGram-analysis>.
+
 ## Contact
 
 For general questions or problems, please email [Katarzyna
