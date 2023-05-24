@@ -1,8 +1,8 @@
 markdown_citation <- function() {
   "
-Sidorczuk K., Gagat P., Kała J., Nielsen H., Pietluch F., Mackiewicz P., Burdukiewicz M. (2022). 
-Where do they come from, where do they go? Efficient prediction of protein subplastid localization 
-and sequence origin with PlastoGram. XXXYYY, doi.
+Sidorczuk K., Gagat P., Kała J., Nielsen H., Pietluch F., Mackiewicz P., Burdukiewicz M. Prediction of 
+protein subplastid localization and origin with PlastoGram. 
+Sci Rep 13, 8365 (2023). https://doi.org/10.1038/s41598-023-35296-0
   "
 }
 

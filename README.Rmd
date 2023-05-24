@@ -117,7 +117,7 @@ predictions[["OM_IM_preds"]]
 
 ```
 
-## Citation (coming soon) 
+## Citation 
 ```{r, echo=FALSE, results='asis'}
 cat(PlastoGram:::markdown_citation())
 ```
